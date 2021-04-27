@@ -4,43 +4,27 @@
 <link type="text/css" rel="stylesheet" href="first.css">
 </link>
 
-<script>
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="handleCard.js"></script>
+    <script>
+        function openNav() {
+            document.getElementById('mysidenav').style.width = '250px';
+        }
 
-    function openNav() {
-        document.getElementById('mysidenav').style.width = '250px';
-    }
-    function closeNav() {
-        document.getElementById('mysidenav').style.width = '0';
-    }
+        function closeNav() {
+            document.getElementById('mysidenav').style.width = '0';
+        }
 
-    var car = new Array(
-        ["Sonata", "blue", 100],
-        ["Jeep", "red", 70],
-        ["Passt", "white", 150]
-    );
-    var cname = document.getElementById("car");
-    cname.textContent = "car[2][1] : " + car[2][1];
-    for (var i = 0; i < 3; i++) {
-        var cname = document.getElementById("car" + i);
-        cname.textContent = car[i];
-    }
+        function submit() {
+            var inLine = document.getElementById("input").value;
+            alert(inLine);
+        }
+    </script>
 
+</head>
 
-    function check() {
-        var n = document.getElementById('input').value;
-        document.getElementById("res").innerText = n + "! 계산 결과는 " + res + "입니다.";
-    }
-
-    function givehint() {
-        alert("What is my name?");
-    }
-
-    function submit() {
-        var inLine = document.getElementById("input").value;
-        alert(inLine);
-    }
-
-</script>
 
 
 <body>
@@ -66,74 +50,155 @@
         </div>
     </div>
 
-    <center>
-        <div>
-            <div>
-                <input type="text" placeholder="INSERT TEXT" id='input'>
-            </div>
-            <button onclick="givehint()">HINT</button>
-            <button onclick="submit()">SUBMIT</button>
-        </div>
-    </center>
-
-    <h1>Draggable DIV Element</h1>
-
-    <p>Click and hold the mouse button down while moving the DIV element</p>
-
-    <div id="card" class="card">
-        <div id="cardheader"><img src="files/cards/1C.png" style="width:100px"></div>
-    </div>
-    <div id="card2" class="card" onclick="selectcard()">
-        <div id="cardheader"><img src="files/cards/1C.png" style="width:100px"></div>
-    </div>
-
     <script>
-        //Make the DIV element draggable:
+        var player1 = new Array();
+        var player2 = new Array();
+        var player3 = new Array();
+        var player4 = new Array();
 
-        card = "card";
-        dragElement(document.getElementById(card));
-
-        function dragElement(elmnt) {
-            var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-            if (document.getElementById(elmnt.id + "header")) {
-                /* if present, the header is where you move the DIV from:*/
-                document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+        function getCard(id, card) {
+            if (id == "player1") {
+                player1.push(card);
+            } else if (id == "player2") {
+                player1.push(card);
+            } else if (id == "player3") {
+                player1.push(card);
+            } else if (id == "player4") {
+                player1.push(card);
             } else {
-                /* otherwise, move the DIV from anywhere inside the DIV:*/
-                elmnt.onmousedown = dragMouseDown;
+                alert("wrong put");
             }
 
-            function dragMouseDown(e) {
-                e = e || window.event;
-                e.preventDefault();
-                // get the mouse cursor position at startup:
-                pos3 = e.clientX;
-                pos4 = e.clientY;
-                document.onmouseup = closeDragElement;
-                // call a function whenever the cursor moves:
-                document.onmousemove = elementDrag;
-            }
+        }
 
-            function elementDrag(e) {
-                e = e || window.event;
-                e.preventDefault();
-                // calculate the new cursor position:
-                pos1 = pos3 - e.clientX;
-                pos2 = pos4 - e.clientY;
-                pos3 = e.clientX;
-                pos4 = e.clientY;
-                // set the element's new position:
-                elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-                elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-            }
+        function getName(num) {
+            var alpha;
+            var number;
+            var res;
 
-            function closeDragElement() {
-                /* stop moving when mouse button is released:*/
-                document.onmouseup = null;
-                document.onmousemove = null;
+            alpha = num % 4;
+            number = parseInt(num / 4) + 1;
+
+            if (alpha == 0) {
+                return (number + "C");
+            }
+            if (alpha == 1) {
+                return (number + "D");
+            }
+            if (alpha == 2) {
+                return (number + "H");
+            }
+            if (alpha == 3) {
+                return (number + "S");
             }
         }
+
+        function newCard(id) {
+            num = parseInt(Math.random(0, 52) * 100 % 52);
+            name = getName(num);
+            alert("Card is " + name);
+            alert(id);
+            getCard(id, name);
+
+        }
+
+        $(function() {
+            var cur_depth = 0;
+            $(".draggable").draggable({
+                helper: "clone",
+                appendTo: "body",
+                stack: ".draggable",
+                revert: "invalid",
+
+
+                drag: function(event, ui) {
+                    $(this)
+                        .addClass("ui-state-highlight", "Card");
+                },
+
+            });
+
+            $(".droppable").droppable({
+                drop: function(event, ui) {
+                    $(this)
+                        .addClass("ui-state-highlight")
+                        .find("img");
+                    var newClone = $(ui.helper).clone();
+                    $(this).after(newClone);
+                    alert("dropped!");
+                    var id_by_class = $(this).attr('id');
+                    newCard(id_by_class);
+
+                }
+            });
+        });
     </script>
+
+    <article>
+        <div id="left"></div>
+        <div id="middle">
+            <div class="container">
+                <div class="flex">
+                    <div class="player1">
+                        <p class="cardholder">
+                            <img src='files/cards/red_back.png' id='player1' class="droppable" class="ui-widget-header" style="width: 90px;">
+                        </p>
+                        <p class="pdescript">player1</p>
+                    </div>
+                    <div class="player1">
+
+                        <p class="playerholder">
+                            <img src='' id='player1' class="droppable" class="ui-widget-header" style="width: 90px;">
+                        </p>
+                    </div>
+
+                    <div class="player2">
+                        <p class="cardholder">
+                            <img src='files/cards/red_back.png' id='player2' class="droppable" class="ui-widget-header" style="width: 90px;">
+                            <p class="pdescript">player2</p>
+                        </p>
+                    </div>
+                    <div class="player2">
+                        <p class="playerholder">
+                            <img src='' id='player2' class="droppable" class="ui-widget-header" style="width: 90px;">
+                        </p>
+                    </div>
+                </div>
+                <div>
+                    <p class="deckholder">
+                        <img src='files/cards/red_back.png' class="draggable" class="ui-widget-content" style="width: 90px;">
+                    </p>
+                </div>
+                <div class="flex">
+                    <div class="player3">
+                        <p class="cardholder">
+                            <img src='files/cards/red_back.png' id='player3' class="droppable" class="ui-widget-header" style="width: 90px;">
+                            <p class="pdescript">player3</p>
+                        </p>
+                    </div>
+                    <div class="player3">
+                        <p class="playerholder">
+                            <img src='' id='player3' class="droppable" class="ui-widget-header" style="width: 90px;">
+                        </p>
+                    </div>
+                    <div class="player4">
+                        <p class="cardholder">
+                            <img src='files/cards/red_back.png' id='player4' class="droppable" class="ui-widget-header" style="width: 90px;">
+                            <p class="pdescript">player4</p>
+
+                        </p>
+                    </div>
+                    <div class="player4">
+                        <p class="playerholder">
+                            <img src='' id='player4' class="droppable" class="ui-widget-header" style="width: 90px;">
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="right"></div>
+    </article>
+
 
     <div class="footer" id="footer">All rights reserevd to 손명빈, 2021.04.26</div>
 
