@@ -75,6 +75,7 @@
             var alpha;
             var number;
             var res;
+            var i;
 
             alpha = num % 4;
             number = parseInt(num / 4) + 1;
@@ -128,6 +129,22 @@
                     alert("dropped!");
                     var id_by_class = $(this).attr('id');
                     newCard(id_by_class);
+                    showCard(id_by_class);
+                    alert("id_by_class: " + id_by_class);
+
+                }
+            });
+
+            $(".putplace").droppable({
+                drop: function(event, ui) {
+                    $(this)
+                        .addClass("ui-state-highlight")
+                        .find("img");
+                    var newClone = $(ui.helper).clone();
+                    $(this).after(newClone);
+                    alert("dropped!");
+                    var id_by_class = $(this).attr('id');
+                    newCard(id_by_class);
 
                 }
             });
@@ -146,8 +163,16 @@
                         <p class="pdescript">player1</p>
                     </div>
                     <div class="player1">
-
                         <p class="playerholder">
+                            <script>
+                                function showCard(){
+                                    for(i=0; i<length(player1); i++)
+                                    {
+                                        document.write("<img src='files/cards/" + player1[i] + ".png' id='player1' class='draggable' class='ui-widget-header' style='width: 90px;'>")
+                                        alert(player1[i]);
+                                    }
+                                }
+                            </script>
                             <img src='' id='player1' class="droppable" class="ui-widget-header" style="width: 90px;">
                         </p>
                     </div>
@@ -164,11 +189,21 @@
                         </p>
                     </div>
                 </div>
+
+<!-- deckholder here -->
                 <div>
-                    <p class="deckholder">
+                    <div class="flex"> 
+                        <p class="deckholder">
                         <img src='files/cards/red_back.png' class="draggable" class="ui-widget-content" style="width: 90px;">
-                    </p>
+                        </p>
+
+                        <div class="cardput" >
+                            <img src="files/back.png" class="putplace" style="width:100px">
+                        </div>
+                    </div>
                 </div>
+
+                
                 <div class="flex">
                     <div class="player3">
                         <p class="cardholder">
