@@ -5,10 +5,20 @@
 </link>
 
 <head>
+
+
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="handleCard.js"></script>
     <script>
+        // var user = prompt("이름 입력");
+
+        window.onload = function() {
+            var temp = document.getElementById("user");
+            // temp.innerText = user;
+            temp.innerText = "명빈";
+        }
+
         function openNav() {
             document.getElementById('mysidenav').style.width = '250px';
         }
@@ -27,7 +37,7 @@
 
 
 
-<body>
+<body id="allthing">
     <div>
         <div>
             <span class="openmenu" onclick='openNav()'><i class="fa fa-angle-double-left fa-5" aria-hidden="true"></i>
@@ -36,7 +46,7 @@
         <div>
             <center>
                 <h1>
-                    ONLINE CARD GAME
+                    타짜
                 </h1>
             </center>
         </div>
@@ -51,58 +61,6 @@
     </div>
 
     <script>
-        var player1 = new Array();
-        var player2 = new Array();
-        var player3 = new Array();
-        var player4 = new Array();
-
-        function getCard(id, card) {
-            if (id == "player1") {
-                player1.push(card);
-            } else if (id == "player2") {
-                player1.push(card);
-            } else if (id == "player3") {
-                player1.push(card);
-            } else if (id == "player4") {
-                player1.push(card);
-            } else {
-                alert("wrong put");
-            }
-
-        }
-
-        function getName(num) {
-            var alpha;
-            var number;
-            var res;
-            var i;
-
-            alpha = num % 4;
-            number = parseInt(num / 4) + 1;
-
-            if (alpha == 0) {
-                return (number + "C");
-            }
-            if (alpha == 1) {
-                return (number + "D");
-            }
-            if (alpha == 2) {
-                return (number + "H");
-            }
-            if (alpha == 3) {
-                return (number + "S");
-            }
-        }
-
-        function newCard(id) {
-            num = parseInt(Math.random(0, 52) * 100 % 52);
-            name = getName(num);
-            alert("Card is " + name);
-            alert(id);
-            getCard(id, name);
-
-        }
-
         $(function() {
             var cur_depth = 0;
             $(".draggable").draggable({
@@ -110,7 +68,6 @@
                 appendTo: "body",
                 stack: ".draggable",
                 revert: "invalid",
-
 
                 drag: function(event, ui) {
                     $(this)
@@ -126,33 +83,18 @@
                         .find("img");
                     var newClone = $(ui.helper).clone();
                     $(this).after(newClone);
-                    alert("dropped!");
                     var id_by_class = $(this).attr('id');
                     newCard(id_by_class);
-                    showCard(id_by_class);
-                    alert("id_by_class: " + id_by_class);
-
                 }
             });
 
-            $(".putplace").droppable({
-                drop: function(event, ui) {
-                    $(this)
-                        .addClass("ui-state-highlight")
-                        .find("img");
-                    var newClone = $(ui.helper).clone();
-                    $(this).after(newClone);
-                    alert("dropped!");
-                    var id_by_class = $(this).attr('id');
-                    newCard(id_by_class);
-
-                }
-            });
         });
     </script>
 
     <article>
-        <div id="left"></div>
+        <div id="left">
+
+        </div>
         <div id="middle">
             <div class="container">
                 <div class="flex">
@@ -160,82 +102,83 @@
                         <p class="cardholder">
                             <img src='files/cards/red_back.png' id='player1' class="droppable" class="ui-widget-header" style="width: 90px;">
                         </p>
-                        <p class="pdescript">player1</p>
+                        <p id="user" class="pdescript"></p>
                     </div>
                     <div class="player1">
                         <p class="playerholder">
-                            <script>
-                                function showCard(){
-                                    for(i=0; i<length(player1); i++)
-                                    {
-                                        document.write("<img src='files/cards/" + player1[i] + ".png' id='player1' class='draggable' class='ui-widget-header' style='width: 90px;'>")
-                                        alert(player1[i]);
-                                    }
-                                }
-                            </script>
-                            <img src='' id='player1' class="droppable" class="ui-widget-header" style="width: 90px;">
+                            <box id='playerholder1' class="droppable" class="ui-widget-header" style="width: 90px;">
                         </p>
                     </div>
 
                     <div class="player2">
                         <p class="cardholder">
                             <img src='files/cards/red_back.png' id='player2' class="droppable" class="ui-widget-header" style="width: 90px;">
-                            <p class="pdescript">player2</p>
+                            <p class="pdescript">고니</p>
                         </p>
                     </div>
                     <div class="player2">
                         <p class="playerholder">
-                            <img src='' id='player2' class="droppable" class="ui-widget-header" style="width: 90px;">
+                            <box id='playerholder2' class="droppable" class="ui-widget-header" style="width: 90px;">
                         </p>
                     </div>
                 </div>
 
-<!-- deckholder here -->
+                <!-- deck here -->
                 <div>
-                    <div class="flex"> 
-                        <p class="deckholder">
-                        <img src='files/cards/red_back.png' class="draggable" class="ui-widget-content" style="width: 90px;">
-                        </p>
 
-                        <div class="cardput" >
-                            <img src="files/back.png" class="putplace" style="width:100px">
-                        </div>
+                    <div class="flex">
+                        <ul>
+                            <li>
+                                <button type="button" id="button1" class="actionButton" onclick="revealCard();">투시</button>
+                                <button type="button" id="button2" class="actionButton" onclick="setCard();">한장씩</button>
+                            </li>
+                            <li>
+                                <button type="button" class="actionButton" id="button3" onclick="calRank()">밑장빼기</button>
+                                <button type="button" class="actionButton" onclick="roll();">판 엎기</button>
+                            </li>
+
+
+                        </ul>
+
+                        <p class="deckholder">
+                            <img src='files/cards/red_back.png' id="deck" class="draggable" class="ui-widget-content" style="width: 90px;">
+                        </p>
                     </div>
                 </div>
 
-                
+
                 <div class="flex">
                     <div class="player3">
                         <p class="cardholder">
                             <img src='files/cards/red_back.png' id='player3' class="droppable" class="ui-widget-header" style="width: 90px;">
-                            <p class="pdescript">player3</p>
+                            <p class="pdescript">아귀</p>
                         </p>
                     </div>
                     <div class="player3">
                         <p class="playerholder">
-                            <img src='' id='player3' class="droppable" class="ui-widget-header" style="width: 90px;">
+                            <box id='playerholder3' class="droppable" class="ui-widget-header" style="width: 90px;">
                         </p>
                     </div>
                     <div class="player4">
                         <p class="cardholder">
                             <img src='files/cards/red_back.png' id='player4' class="droppable" class="ui-widget-header" style="width: 90px;">
-                            <p class="pdescript">player4</p>
+                            <p class="pdescript">정마담</p>
 
                         </p>
                     </div>
                     <div class="player4">
                         <p class="playerholder">
-                            <img src='' id='player4' class="droppable" class="ui-widget-header" style="width: 90px;">
+                            <box id='playerholder4' class="droppable" class="ui-widget-header" style="width: 90px;">
                         </p>
                     </div>
                 </div>
             </div>
         </div>
         <div id="right"></div>
+
     </article>
 
 
-    <div class="footer" id="footer">All rights reserevd to 손명빈, 2021.04.26</div>
 
 </body>
 
