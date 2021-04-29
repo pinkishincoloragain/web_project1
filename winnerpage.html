@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<link type="text/css" rel="stylesheet" href="first.css">
+</link>
+
+<head>
+    <script src="jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="handleCard.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $("#panel").click(function() {
+                $("#panel").slideUp("fast");
+            });
+            $("#slide").click(function() {
+                $("#panel").slideDown(10);
+            });
+            $("#flip").click(function() {
+                $("#panel").slideToggle("slow");
+            });
+        });
+    </script>
+
+</head>
+
+<body style="background-color: black;">
+    <center>
+        <img src="files/타짜.png" style="width:500px">
+        <div id="slide"></div>
+    </center>
+    <center>
+        <div id="panel">
+            <flex>
+                <img src="files/">
+            </flex>
+        </div>
+    </center>
+
+    <center>
+        <div id="flip">결과 확인</div>
+    </center>
+</body>

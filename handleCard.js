@@ -26,7 +26,7 @@ function getCard(id, card) {
 }
 
 function showCard(id, name) {
-    var img = document.createElement("img"); // 이미지 객체 생성
+    var img = document.createElement("img");
     img.src = "files/cards/" + name + ".png";
     img.style.width = 50 + "px";
     if (id != "player1") img.setAttribute("class", "card");
@@ -91,14 +91,15 @@ function revealCard() {
         each.style.width = 50 + "px";
     }
 
-    setTimeout(function() {
-        flipCard();
-    }, 2000);
 }
 
 var temp = null;
 
 function setCard() {
+    if (allCards.length == 0) {
+        alert('더 이상 카드를 뽑을 수 없습니다.');
+        roll();
+    }
     newCard("player1");
     newCard("player2");
     newCard("player3");
@@ -107,8 +108,8 @@ function setCard() {
 }
 
 function roll() {
-    alert("판을 엎습니다.");
-    for (var i = 0; i <= 2160; i++) {
+    alert("판을 엎고, " + user + "이(가) 도박장을 떠납니다.");
+    for (var i = 0; i <= 4320; i++) {
         setTimeout("rotateit(" + i + ")", i);
     }
 
@@ -151,28 +152,44 @@ function newGame() {
     for (i = 0; i < 52; i++) {
         allCards[i] = i;
     }
+
+    player1 = new Array();
+    player2 = new Array();
+    player3 = new Array();
+    player4 = new Array();
+    catchPhrase = new Array();
+
+    setTimeout(() => {
+        location.reload();
+    }, 2000);
 }
 
 function calRank() {
     var i = 0;
     var res = new Array();
     res.push(calculate(player1));
-    alert("player1: " + res[0]);
+    // alert("player1: " + res[0]);
 
     res.push(calculate(player2));
-    alert("player2: " + res[1]);
+    // alert("player2: " + res[1]);
 
     res.push(calculate(player3));
-    alert("player3: " + res[2]);
+    // alert("player3: " + res[2]);
 
     res.push(calculate(player4));
-    alert("player4: " + res[3]);
+    // alert("player4: " + res[3]);
+
+    for (i = 0; i < 4; i++) {
+        if (res[i] == -1) {
+            alert("모든 플레이어의 패가 적어도 한 장씩은 있어야 합니다.");
+            return;
+        }
+    }
 
     alert(user + "(이)의 패는 " + catchPhrase[0] + " 입니다")
     alert("고니의 패는 " + catchPhrase[1] + " 입니다");
     alert("아귀의 패는 " + catchPhrase[2] + " 입니다");
     alert("정마담의 패는 " + catchPhrase[3] + " 입니다");
-
 
     var maxScore = res[0];
     var sameValue = new Array();
@@ -191,13 +208,7 @@ function calRank() {
         }
     }
 
-    if (sameValue.length > 0) {
-        while (1) {
-
-            sameValue
-
-        }
-    } else if (maxScore_idx == 0) {
+    if (maxScore_idx == 0) {
         alert(userName + "(이)가 최종 승자입니다!!");
     } else if (maxScore_idx == 1) {
         alert("고니" + "가 최종 승자입니다!!");
@@ -213,7 +224,7 @@ function calculate(arr) {
     len = arr.length;
 
     if (len == 0) {
-        return "has no Card";
+        return -1;
     }
 
     var num = new Array(len);
@@ -229,7 +240,6 @@ function calculate(arr) {
     var symbols = ["S", "D", "H", "C"];
     var real_symbols = ["Spade", "Diamond", "Heart", "Clover"];
     var special = ["Ace", "Jack", "Queen", "King"];
-    var namer;
 
     // sort cards
     for (var i = 0; i < len; i++) {
@@ -517,14 +527,51 @@ function calculate(arr) {
 
     if (num[maxIdx] > 10) {
         var temp2 = num[maxIdx] - 10;
-        catchPhrase.push(real_symbols[real] + " " + special[temp2] + " 이 가장 높은 카드");
+        catchPhrase.push(real_symbols[real] + " " + special[temp2] + " 하이 카드(High Card)");
         return num[maxIdx] * 10 + real;
     } else if (num[maxIdx] == 1) {
-        catchPhrase.push(real_symbols[real] + " " + special[0] + " 이 가장 높은 카드");
+        catchPhrase.push(real_symbols[real] + " " + special[0] + " 하이 카드(High Card)");
         return num[maxIdx] * 10 + real;
     } else {
-        catchPhrase.push(real_symbols[real] + " " + num[maxIdx] + " 이 가장 높은 카드");
+        catchPhrase.push(real_symbols[real] + " " + num[maxIdx] + " 하이 카드(High Card)");
         return num[maxIdx] * 10 + real;
     }
+
+}
+
+var bgm_count = 0;
+var audio1_count = 0;
+var audio2_count = 0;
+var audio3_count = 0;
+
+
+function bgm_player() {
+    var audio = new Audio('/files/bgm.mp3');
+    audio.volume = 0.05;
+    if (bgm_count == 0) audio.play();
+    bgm_count = 1;
+}
+
+
+function p1_player() {
+    var audio = new Audio('/files/고니.mp3');
+    if (audio1_count == 0)
+        audio.play();
+    audio1_count = 1;
+}
+
+function p2_player() {
+    var audio = new Audio('/files/아귀.mp3');
+    if (audio2_count == 0)
+        audio.play();
+    audio2_count = 1;
+
+}
+
+function p3_player() {
+    var audio = new Audio('/files/정마담.mp3');
+    if (audio3_count == 0)
+        audio.play();
+    audio3_count = 1;
 
 }

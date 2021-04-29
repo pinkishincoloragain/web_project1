@@ -5,13 +5,11 @@
 </link>
 
 <head>
-
-
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="handleCard.js"></script>
     <script>
-        var user = prompt("이름 입력");
+        var user = prompt("플레이어의 이름을 입력하세요.");
 
         window.onload = function() {
             var temp = document.getElementById("user");
@@ -36,26 +34,26 @@
 
 
 
-<body id="allthing">
+<body class="upper">
     <div>
         <div>
-            <span class="openmenu" onclick='openNav()'><i class="fa fa-angle-double-left fa-5" aria-hidden="true"></i>
-                MENU</span>
+            <span class="openmenu" onclick='openNav()'>도움말</span>
         </div>
         <div>
             <center>
                 <h1>
-                    타짜
+                    <img src="files/타짜.png" style="height: 300px;" class="title" onclick="bgm_player()">
                 </h1>
             </center>
         </div>
         <div id="mysidenav" class="sidenav">
             <a href="#" class="closebtn" onclick='closeNav()'>x</a>
-            <a href="#">About</a>
-            <a href="#">Services</a>
-            <a href="#">Clients</a>
-            <a href="#">Contact</a>
-            <a href="#">Portfolio</a>
+            <p>1. 플레이어를 눌러<br>대사를 들을 수 있습니다</p>
+            <p>2. 로고를 눌러<br>배경음악을 들을 수 있습니다</p>
+            <center>
+                <p style="font: weight 800px; font-size:30px;">족보</p>
+            </center>
+            <img src="files/카드 족보.png" style="position:absolute; left:0px; width:250px">
         </div>
     </div>
 
@@ -89,85 +87,86 @@
 
         });
     </script>
+</body>
 
-    <article>
+<body class="middleBody">
+    <article style="background-color: green;">
         <div id="left">
 
         </div>
         <div id="middle">
-            <div class="container">
-                <div class="flex">
-                    <div class="player1">
-                        <p class="cardholder">
-                            <img src='files/cards/red_back.png' id='player1' class="droppable" class="ui-widget-header" style="width: 90px;">
-                        </p>
-                        <p id="user" class="pdescript"></p>
-                    </div>
-                    <div class="player1">
-                        <p class="playerholder">
-                            <box id='playerholder1' class="droppable" class="ui-widget-header" style="width: 90px;">
-                        </p>
-                    </div>
-
-                    <div class="player2">
-                        <p class="cardholder">
-                            <img src='files/cards/red_back.png' id='player2' class="droppable" class="ui-widget-header" style="width: 90px;">
-                            <p class="pdescript">고니</p>
-                        </p>
-                    </div>
-                    <div class="player2">
-                        <p class="playerholder">
-                            <box id='playerholder2' class="droppable" class="ui-widget-header" style="width: 90px;">
-                        </p>
-                    </div>
+            <div class="flex">
+                <div class="player1">
+                    <p class="cardholder">
+                        <img src='files/user.png' id='player1' class="droppable" class="ui-widget-header" style="width: 90px;">
+                    </p>
+                    <p id="user" class="pdescript"></p>
+                </div>
+                <div class="player1">
+                    <p class="playerholder">
+                        <box id='playerholder1' class="droppable" class="ui-widget-header" style="width: 90px;">
+                    </p>
                 </div>
 
-                <!-- deck here -->
-                <div>
-
-                    <div class="flex">
-                        <ul>
-                            <li>
-                                <button type="button" id="button1" class="actionButton" onclick="revealCard();">투시</button>
-                                <button type="button" id="button2" class="actionButton" onclick="setCard();">한장씩</button>
-                            </li>
-                            <li>
-                                <button type="button" class="actionButton" id="button3" onclick="calRank()">결과</button>
-                                <button type="button" class="actionButton" onclick="roll();">판 엎기</button>
-                            </li>
-                        </ul>
-
-                        <p class="deckholder">
-                            <img src='files/cards/red_back.png' id="deck" class="draggable" class="ui-widget-content" style="width: 90px;">
-                        </p>
-                    </div>
+                <div class="player2">
+                    <p class="cardholder">
+                        <img src='files/고니.png' id='player2' class="droppable" class="ui-widget-header" style="width: 90px;" onclick='p1_player();'>
+                        <p class="pdescript">GO-NI</p>
+                    </p>
                 </div>
+                <div class="player2">
+                    <p class="playerholder">
+                        <box id='playerholder2' class="droppable" class="ui-widget-header" style="width: 90px;">
+                    </p>
+                </div>
+            </div>
 
+            <!-- deck here -->
+            <div>
 
                 <div class="flex">
-                    <div class="player3">
-                        <p class="cardholder">
-                            <img src='files/cards/red_back.png' id='player3' class="droppable" class="ui-widget-header" style="width: 90px;">
-                            <p class="pdescript">아귀</p>
-                        </p>
-                    </div>
-                    <div class="player3">
-                        <p class="playerholder">
-                            <box id='playerholder3' class="droppable" class="ui-widget-header" style="width: 90px;">
-                        </p>
-                    </div>
-                    <div class="player4">
-                        <p class="cardholder">
-                            <img src='files/cards/red_back.png' id='player4' class="droppable" class="ui-widget-header" style="width: 90px;">
-                            <p class="pdescript">정마담</p>
+                    <ul>
+                        <li>
+                            <button type="button" id="button1" class="actionButton" style="border-color:burlywood" onclick="revealCard();">특수능력<br>(투시)</button>
+                            <button type="button" id="button2" class="actionButton" style="border-color: teal;" onclick="setCard();">한
+                                장씩<br>나눠주기</button>
+                        </li>
+                        <li>
+                            <button type="button" class="actionButton" id="button3" style="border-color: white;" onclick="calRank();">점수보기</button>
+                            <button type="button" class="actionButton" style="border-color: darkred;" onclick="roll();">판 엎기</button>
+                        </li>
+                    </ul>
 
-                        </p>
-                    </div>
-                    <div class="player4">
-                        <p class="playerholder">
-                            <box id='playerholder4' class="droppable" class="ui-widget-header" style="width: 90px;">
-                        </p>
-                    </div>
+                    <p class="deckholder">
+                        <img src='files/cards/red_back.png' id="deck" class="draggable" class="ui-widget-content" style="width: 90px;">
+                    </p>
+                </div>
+            </div>
+
+
+            <div class="flex">
+                <div class="player3">
+                    <p class="cardholder">
+                        <img src='files/아귀.png' id='player3' class="droppable" class="ui-widget-header" style="width: 90px;" onclick='p2_player();'>
+                        <p class="pdescript">A-GWI</p>
+                    </p>
+                </div>
+                <div class="player3">
+                    <p class="playerholder">
+                        <box id='playerholder3' class="droppable" class="ui-widget-header" style="width: 90px;">
+                    </p>
+                </div>
+                <div class="player4">
+                    <p class="cardholder">
+                        <img src='files/정마담.jpg' id='player4' class="droppable" class="ui-widget-header" style="width: 90px;" onclick='p3_player();'>
+                        <p class="pdescript">Madam Jung</p>
+
+                    </p>
+                </div>
+                <div class="player4">
+                    <p class="playerholder">
+                        <box id='playerholder4' class="droppable" class="ui-widget-header" style="width: 90px;">
+                    </p>
                 </div>
             </div>
         </div>
