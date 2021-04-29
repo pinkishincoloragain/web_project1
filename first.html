@@ -11,12 +11,11 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="handleCard.js"></script>
     <script>
-        // var user = prompt("이름 입력");
+        var user = prompt("이름 입력");
 
         window.onload = function() {
             var temp = document.getElementById("user");
-            // temp.innerText = user;
-            temp.innerText = "명빈";
+            temp.innerText = user;
         }
 
         function openNav() {
@@ -133,7 +132,7 @@
                                 <button type="button" id="button2" class="actionButton" onclick="setCard();">한장씩</button>
                             </li>
                             <li>
-                                <button type="button" class="actionButton" id="button3" onclick="calRank()">베팅 끝</button>
+                                <button type="button" class="actionButton" id="button3" onclick="calRank()">결과</button>
                                 <button type="button" class="actionButton" onclick="roll();">판 엎기</button>
                             </li>
                         </ul>
