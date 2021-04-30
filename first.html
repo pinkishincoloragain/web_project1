@@ -12,7 +12,7 @@
         var user = prompt("플레이어의 이름을 입력하세요.");
 
         window.onload = function() {
-            var temp = document.getElementById("user");
+            var temp = document.getElementById("puser");
             temp.innerText = user;
         }
 
@@ -48,8 +48,9 @@
         </div>
         <div id="mysidenav" class="sidenav">
             <a href="#" class="closebtn" onclick='closeNav()'>x</a>
-            <p>1. 플레이어를 눌러<br>대사를 들을 수 있습니다</p>
-            <p>2. 로고를 눌러<br>배경음악을 들을 수 있습니다</p>
+            <p>1. 마우스로 카드를 끌어<br>플레이어에게 카드를 줄 수 있습니다.</p>
+            <p>2. 플레이어를 눌러<br>대사를 들을 수 있습니다.</p>
+            <p>3. 로고를 눌러<br>배경음악을 들을 수 있습니다.</p>
             <center>
                 <p style="font: weight 800px; font-size:30px;">족보</p>
             </center>
@@ -100,24 +101,26 @@
                     <p class="cardholder">
                         <img src='files/user.png' id='player1' class="droppable" class="ui-widget-header" style="width: 90px;">
                     </p>
-                    <p id="user" class="pdescript"></p>
+                    <p id="puser" class="pdescript"></p>
                 </div>
                 <div class="player1">
                     <p class="playerholder">
                         <box id='playerholder1' class="droppable" class="ui-widget-header" style="width: 90px;">
                     </p>
+                    <p id="cuser" class="cdescript"></p>
                 </div>
 
                 <div class="player2">
                     <p class="cardholder">
                         <img src='files/고니.png' id='player2' class="droppable" class="ui-widget-header" style="width: 90px;" onclick='p1_player();'>
-                        <p class="pdescript">GO-NI</p>
+                        <p class="pdescript" id="p2">GO-NI</p>
                     </p>
                 </div>
                 <div class="player2">
                     <p class="playerholder">
                         <box id='playerholder2' class="droppable" class="ui-widget-header" style="width: 90px;">
                     </p>
+                    <p class="cdescript" id="c2"></p>
                 </div>
             </div>
 
@@ -148,34 +151,77 @@
                 <div class="player3">
                     <p class="cardholder">
                         <img src='files/아귀.png' id='player3' class="droppable" class="ui-widget-header" style="width: 90px;" onclick='p2_player();'>
-                        <p class="pdescript">A-GWI</p>
+                        <p class="pdescript" id="p3">A-GWI</p>
                     </p>
                 </div>
                 <div class="player3">
                     <p class="playerholder">
                         <box id='playerholder3' class="droppable" class="ui-widget-header" style="width: 90px;">
                     </p>
+                    <p class="cdescript" id="c3"></p>
                 </div>
                 <div class="player4">
                     <p class="cardholder">
                         <img src='files/정마담.jpg' id='player4' class="droppable" class="ui-widget-header" style="width: 90px;" onclick='p3_player();'>
-                        <p class="pdescript">Madam Jung</p>
-
+                        <p class="pdescript" id="p4">Madam Jung</p>
                     </p>
                 </div>
                 <div class="player4">
                     <p class="playerholder">
                         <box id='playerholder4' class="droppable" class="ui-widget-header" style="width: 90px;">
                     </p>
+                    <p class="cdescript" id="c4"></p>
                 </div>
             </div>
         </div>
         <div id="right"></div>
 
     </article>
+    <article>
 
+        <center>
+            <div id="slide"></div>
+        </center>
+        <center>
+            <div id="panel">
+                <flex>
+                    <box id="winnerbox0"></box>
+                </flex>
+                <flex>
+                    <box id="winnerbox1"></box>
+                </flex>
+                <flex>
+                    <box id="winnerbox2"></box>
+                </flex>
+                <flex>
+                    <box id="winnerbox3"></box>
 
+                </flex>
+            </div>
+        </center>
+
+    </article>
 
 </body>
+
+<script>
+    $(document).ready(function() {
+        $("#panel").click(function() {
+            $("#panel").slideUp("fast");
+        });
+        $("#slide").click(function() {
+            $("#panel").slideDown(10);
+        });
+        $("#flip").click(function() {
+            $("#panel").slideToggle("slow");
+        });
+    });
+</script>
+
+<body style="background-color: black;">
+
+</body>
+
+
 
 </html>

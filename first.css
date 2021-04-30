@@ -107,6 +107,16 @@ div#right {
     font-family: Georgia, "Times New Roman", Times, serif;
 }
 
+.cdescript {
+    float: left;
+    /* margin-top: 10px; */
+    /* padding: 5px; */
+    font-size: 30px;
+    color: yellow;
+    font-style: italic;
+    font-family: Georgia, "Times New Roman", Times, serif;
+}
+
 .player1 {
     float: left;
     margin-top: 50px;
@@ -287,7 +297,7 @@ audio {
 }
 
 #slide {
-    height: 5px;
+    height: 30px;
     border-radius: 50px;
     border-color: cadetblue;
     border-width: 10px;

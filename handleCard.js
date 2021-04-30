@@ -5,6 +5,9 @@ var player2 = new Array();
 var player3 = new Array();
 var player4 = new Array();
 var catchPhrase = new Array();
+var result = new Array();
+var sortedPlayer = new Array();
+
 
 var allCards = new Array();
 for (i = 0; i < 52; i++) {
@@ -38,7 +41,6 @@ function showCard(id, name) {
 function getName(num) {
     var alpha;
     var number;
-    var res;
     var i;
 
     alpha = num % 4;
@@ -81,6 +83,7 @@ function flipCard() {
 }
 
 function revealCard() {
+    bgm_player();
     var cards = document.getElementsByClassName("card");
     // alert(cards.length);
     for (var i = 0; i < cards.length; i++) {
@@ -90,7 +93,9 @@ function revealCard() {
         each.src = "files/cards/" + cardID + ".png";
         each.style.width = 50 + "px";
     }
-
+    setTimeout(() => {
+        flipCard();
+    }, 2000);
 }
 
 var temp = null;
@@ -166,58 +171,79 @@ function newGame() {
 
 function calRank() {
     var i = 0;
-    var res = new Array();
-    res.push(calculate(player1));
-    // alert("player1: " + res[0]);
+    result[0] = calculate(player1);
+    // alert("player1: " + result[0]);
 
-    res.push(calculate(player2));
-    // alert("player2: " + res[1]);
+    result[1] = calculate(player2);
+    // alert("player2: " + result[1]);
 
-    res.push(calculate(player3));
-    // alert("player3: " + res[2]);
+    result[2] = calculate(player3);
+    // alert("player3: " + result[2]);
 
-    res.push(calculate(player4));
-    // alert("player4: " + res[3]);
+    result[3] = calculate(player4);
+    // alert("player4: " + result[3]);
 
     for (i = 0; i < 4; i++) {
-        if (res[i] == -1) {
+        if (result[i] == -1) {
+            if (result[i] == -1)
+                alert(i);
             alert("모든 플레이어의 패가 적어도 한 장씩은 있어야 합니다.");
             return;
         }
     }
 
-    alert(user + "(이)의 패는 " + catchPhrase[0] + " 입니다")
-    alert("고니의 패는 " + catchPhrase[1] + " 입니다");
-    alert("아귀의 패는 " + catchPhrase[2] + " 입니다");
-    alert("정마담의 패는 " + catchPhrase[3] + " 입니다");
+    document.getElementById("cuser").innerHTML = catchPhrase[0];
+    for (i = 2; i <= 4; i++) {
+        document.getElementById("c" + i).innerHTML = catchPhrase[i - 1];
+    }
 
-    var maxScore = res[0];
+    // alert(user + "(이)의 패는 " + catchPhrase[0] + " 입니다")
+    // alert("고니의 패는 " + catchPhrase[1] + " 입니다");
+    // alert("아귀의 패는 " + catchPhrase[2] + " 입니다");
+    // alert("정마담의 패는 " + catchPhrase[3] + " 입니다");
+
+    var cards = document.getElementsByClassName("card");
+    // alert(cards.length);
+    for (var i = 0; i < cards.length; i++) {
+        var each = cards.item(i);
+        cardID = each.getAttribute("id");
+        // alert(cardID);
+        each.src = "files/cards/" + cardID + ".png";
+        each.style.width = 50 + "px";
+    }
+
+    var maxScore = 0;
+    var j = 0;
     var sameValue = new Array();
     for (i = 0; i < 4; i++) {
-        if (maxScore < res[i]) {
-            maxScore = res[i];
-        } else if (maxScore == res[i]) {
-            sameValue.push(i);
+        if (maxScore < result[i]) {
+            maxScore = result[i];
+            sortedPlayer.unshift(i);
+        } else {
+            sortedPlayer.push(i);
         }
     }
     var maxScore_idx;
-    for (i = 0; i < 4; i++) {
-        if (res[i] == maxScore) {
-            maxScore_idx = i;
+    for (j = 0; j < 4; j++) {
+        if (result[i] == maxScore) {
+            maxScore_idx = j;
             break;
         }
     }
+    document.getElementById("playerholder" + maxScore_idx);
 
-    if (maxScore_idx == 0) {
-        alert(userName + "(이)가 최종 승자입니다!!");
-    } else if (maxScore_idx == 1) {
-        alert("고니" + "가 최종 승자입니다!!");
-    } else if (maxScore_idx == 2) {
-        alert("아귀" + "가 최종 승자입니다!!");
-    } else {
-        alert("정마담" + "이 최종 승자입니다!!");
-    }
-
+    // if (maxScore_idx == 0) {
+    //     // alert(user + "(이)가 최종 승자입니다!!");
+    // } else if (maxScore_idx == 1) {
+    //     // alert("고니" + "가 최종 승자입니다!!");
+    // } else if (maxScore_idx == 2) {
+    //     // alert("아귀" + "가 최종 승자입니다!!");
+    // } else {
+    //     // alert("정마담" + "이 최종 승자입니다!!");
+    // }
+    // window.name = "winnerpage";
+    // window.open("winnerpage.html",
+    //     "childForm", "width=1000, height=2000, resizable = no, scrollbars = no");
 }
 
 function calculate(arr) {
@@ -465,8 +491,8 @@ function calculate(arr) {
         for (i = pairIdx1 + 1; i < len - 1; i++) {
             if (num[i] == num[i + 1]) {
                 pairIdx2 = i;
+                break;
             }
-            break;
         }
 
         if (pairIdx1 != -1 && pairIdx2 != -1) {
@@ -527,17 +553,18 @@ function calculate(arr) {
 
     if (num[maxIdx] > 10) {
         var temp2 = num[maxIdx] - 10;
-        catchPhrase.push(real_symbols[real] + " " + special[temp2] + " 하이 카드(High Card)");
+        catchPhrase.push(real_symbols[real] + " " + special[temp2] + " 하이 카드(High Card)<br>");
         return num[maxIdx] * 10 + real;
     } else if (num[maxIdx] == 1) {
-        catchPhrase.push(real_symbols[real] + " " + special[0] + " 하이 카드(High Card)");
+        catchPhrase.push(real_symbols[real] + " " + special[0] + " 하이 카드(High Card)<br>");
         return num[maxIdx] * 10 + real;
     } else {
-        catchPhrase.push(real_symbols[real] + " " + num[maxIdx] + " 하이 카드(High Card)");
+        catchPhrase.push(real_symbols[real] + " " + num[maxIdx] + " 하이 카드(High Card)<br>");
         return num[maxIdx] * 10 + real;
     }
 
 }
+
 
 var bgm_count = 0;
 var audio1_count = 0;
@@ -575,3 +602,37 @@ function p3_player() {
     audio3_count = 1;
 
 }
+
+function resultCard() {
+    var cards = document.getElementsByClassName("card");
+    // alert(cards.length);
+    for (var i = 0; i < cards.length; i++) {
+        var each = cards.item(i);
+        cardID = each.getAttribute("id");
+        // alert(cardID);
+        each.src = "files/cards/" + cardID + ".png";
+        each.style.width = 50 + "px";
+    }
+}
+
+// function display() {
+//     var playerImg = new Array();
+//     console.log("pfish");
+//     playerImg = ["user.png", "고니.png", "아귀.png", "정마담.jpg"];
+//     var temp = 0;
+//     for (var i = 0; i < 4; i++) {
+//         var img = document.createElement("img");
+//         img.src = "files/" + playerImg[i];
+//         img.style.width = 200 + "px";
+//         document.getElementById("winnerbox" + i).appendChild(img);
+//     }
+
+//     alert(player1.length);
+//     for (i = 0; i < player1.length; i++) {
+//         img = document.createElement("img");
+//         img.src = "files/cards/" + player1[i];
+//         alert(player1[i]);
+//         img.style.width = 200 + "px";
+//         document.getElementById("winnerbox" + i).appendChild(img);
+//     }
+// }
