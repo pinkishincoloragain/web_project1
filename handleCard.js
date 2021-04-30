@@ -351,7 +351,7 @@ function calculate(arr) {
             }
         }
         if (pairIdx != -1) {
-            catchPhrase.push("Royal Flush");
+            catchPhrase.push("Royal Flush !!");
             return 300000;
         }
         return -1;
@@ -375,9 +375,19 @@ function calculate(arr) {
                 break;
             }
         }
+
         if (pairIdx != -1) {
-            catchPhrase.push(num[pairIdx] + " Straight");
-            return 100000 + num[pairIdx];
+            if (num[pairIdx] > 10) {
+                var temp2 = num[pairIdx] - 10;
+                catchPhrase.push(special[temp2] + " Straight Flush");
+                return 100000 + num[pairIdx];
+            } else if (num[pairIdx] == 1) {
+                catchPhrase.push(special[0] + " Straight Flush");
+                return 100000 + num[pairIdx];
+            } else {
+                catchPhrase.push(num[pairIdx] + " Straight Flush");
+                return 100000 + parseInt(num[pairIdx]);
+            }
         }
         return -1;
     }
@@ -400,8 +410,17 @@ function calculate(arr) {
         }
 
         if (pairIdx != -1) {
-            catchPhrase.push(num[pairIdx] + " four of a Kind");
-            return 50000 + num[pairIdx];
+            if (num[pairIdx] > 10) {
+                var temp2 = num[pairIdx] - 10;
+                catchPhrase.push(special[temp2] + " four of a Kind");
+                return 50000 + num[pairIdx];
+            } else if (num[pairIdx] == 1) {
+                catchPhrase.push(special[0] + " four of a Kind");
+                return 50000 + num[pairIdx];
+            } else {
+                catchPhrase.push(num[pairIdx] + " four of a Kind");
+                return 50000 + parseInt(num[pairIdx]);
+            }
         }
         return -1;
     }
@@ -433,7 +452,7 @@ function calculate(arr) {
             }
             if (pairIdx2 != -1) {
                 catchPhrase.push("Full House");
-                return 30000 + num[pairIdx2];
+                return 30000 + parseInt(num[pairIdx2]);
             }
         }
         return -1;
@@ -455,9 +474,10 @@ function calculate(arr) {
                 break;
             }
         }
+
         if (pairIdx != -1) {
             catchPhrase.push(alpha[pairIdx] + " Flush");
-            return 10000 + num[pairIdx];
+            return 10000 + parseInt(num[pairIdx]);
         }
         return -1;
     }
@@ -482,9 +502,19 @@ function calculate(arr) {
                 break;
             }
         }
+
         if (pairIdx != -1) {
-            catchPhrase.push(num[pairIdx] + " Straight");
-            return 5000 + num[pairIdx];
+            if (num[pairIdx] > 10) {
+                var temp2 = num[pairIdx] - 10;
+                catchPhrase.push(special[temp2] + " Straight");
+                return 5000 + num[pairIdx];
+            } else if (num[pairIdx] == 1) {
+                catchPhrase.push(special[0] + " Straight");
+                return 5000 + num[pairIdx];
+            } else {
+                catchPhrase.push(num[pairIdx] + " Straight");
+                return 5000 + parseInt(num[pairIdx]);
+            }
         }
         return -1;
     }
@@ -502,8 +532,17 @@ function calculate(arr) {
         }
 
         if (pairIdx != -1) {
-            catchPhrase.push(num[pairIdx] + " Three of a Kind");
-            return 3000 + num[pairIdx];
+            if (num[pairIdx] > 10) {
+                var temp2 = num[pairIdx] - 10;
+                catchPhrase.push(special[temp2] + " Three of a Kind");
+                return 3000 + num[pairIdx];
+            } else if (num[pairIdx] == 1) {
+                catchPhrase.push(special[0] + " Three of a Kind");
+                return 3000 + num[pairIdx];
+            } else {
+                catchPhrase.push(num[pairIdx] + " Three of a Kind");
+                return 3000 + num[pairIdx];
+            }
         }
         return -1;
     }
@@ -529,8 +568,29 @@ function calculate(arr) {
         }
 
         if (pairIdx1 != -1 && pairIdx2 != -1) {
-            catchPhrase.push(num[pairIdx1] + " " + num[pairIdx2] + " Two Pair");
-            return 2000 + num[pairIdx1] + num[pairIdx2];
+            var ph1;
+            var ph2;
+            if (num[pairIdx1] > 10) {
+                var temp2 = num[pairIdx1] - 10;
+                ph1 = special[temp2];
+            } else if (num[pairIdx1] == 1) {
+                ph1 = special[0];
+                return 1000 + num[pairIdx1];
+            } else {
+                ph1 = num[pairIdx1];
+            }
+
+            if (num[pairIdx2] > 10) {
+                var temp2 = num[pairIdx2] - 10;
+                ph2 = special[temp2];
+            } else if (num[pairIdx2] == 1) {
+                ph2 = special[0];
+                return 1000 + num[pairIdx2];
+            } else {
+                ph2 = num[pairIdx2];
+            }
+            catchPhrase.push(ph1 + " " + ph2 + " Two Pair");
+            return 2000 + parseInt(num[pairIdx1]) + parseInt(num[pairIdx2]);
         }
         return -1;
     }
