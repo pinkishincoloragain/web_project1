@@ -1,0 +1,358 @@
+.middleBody {
+    background-color: darkgreen;
+}
+
+.upper {
+    background-color: rgb(22, 22, 22);
+}
+
+h1:first-child {
+    /* 첫번째 태그의 텍스트 색상 */
+    color: black;
+    font-size: 50px;
+}
+
+#confirm {
+    display: none;
+    background-color: #ffffff;
+    border: 1px solid #aaa;
+    position: fixed;
+    width: 250px;
+    left: 50%;
+    margin-left: -100px;
+    padding: 6px 8px 8px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+#confirm button {
+    background-color: #48e5da;
+    display: inline-block;
+    border-radius: 5px;
+    border: 1px solid #aaa;
+    padding: 5px;
+    text-align: center;
+    width: 80px;
+    cursor: pointer;
+}
+
+#confirm .message {
+    text-align: left;
+}
+
+.player_deck {
+    float: left;
+    height: 100px;
+    margin: 10px;
+}
+
+.flex {
+    display: flex;
+    border-color: brown;
+}
+
+.flexbox {
+    display: flex;
+    padding-left: 10px;
+    margin: 10px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+
+.totalbox {
+    padding-top: 10px;
+    padding-bottom: 0px;
+    text-align: center;
+    color: violet;
+    border-width: 10px;
+    border-color: violet;
+    font-size: 40px;
+    font-weight: 700;
+}
+
+div#left {
+    width: 15%;
+    height: 700px;
+    float: left;
+}
+
+div#middle {
+    width: 40%;
+    height: 700px;
+    float: left;
+}
+
+div#right {
+    width: 30%;
+    height: 700px;
+    float: left;
+}
+
+.container {
+    margin: 10%;
+}
+
+.sameRow {
+    border: 2px solid black;
+    height: 40px;
+    width: 100%;
+}
+
+.actionButton {
+    background-color: cadetblue;
+    font-size: 16px;
+    font-weight: 1000;
+    font-style: italic;
+    border-radius: 100px;
+    width: 100px;
+    height: 100px;
+    margin: 5px;
+    border-color: brown;
+    border-style: groove;
+    border-width: 10px;
+}
+
+.actionButton:hover {
+    border-width: 15px;
+}
+
+.pdescript {
+    float: left;
+    margin-top: 20px;
+    margin-bottom: 0px;
+    /* padding: 5px; */
+    font-size: 30px;
+    color: salmon;
+    font-style: italic;
+    font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+.cdescript {
+    float: left;
+    text-align: right;
+    margin-top: 20px;
+    margin-bottom: 0px;
+    /* padding: 5px; */
+    font-size: 25px;
+    color: yellow;
+    font-style: italic;
+    /* font-family: Georgia, "Times New Roman", Times, serif; */
+}
+
+.player1 {
+    float: left;
+    margin-top: 50px;
+}
+
+.player2 {
+    float: right;
+    margin-top: 50px;
+}
+
+.player3 {
+    float: left;
+    margin-bottom: 50px;
+}
+
+.player4 {
+    float: right;
+    margin-bottom: 50px;
+}
+
+.playerholder {
+    height: 165px;
+    width: 300px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-right: 50px;
+    border-style: dotted;
+    border-width: thick;
+    border-color: rgb(0, 85, 0);
+    text-align: center;
+}
+
+.cardholder {
+    margin-right: 50px;
+    margin-left: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    width: 90px;
+    height: 105px;
+    padding: 30px;
+    border-style: dotted;
+    border-width: thick;
+    border-color: white;
+}
+
+.card {
+    border-width: 3px;
+    border-color: brown;
+}
+
+.deckholder {
+    margin-bottom: 50px;
+    margin-top: 50px;
+    margin-right: 100px;
+    margin-left: 200px;
+    width: 90px;
+    padding: 30px;
+    border-style: dotted;
+    border-width: thick;
+    border-color: red;
+    float: right;
+}
+
+.cardput {
+    margin-left: 200px;
+    margin-top: 40px;
+    width: 300px;
+    height: 150px;
+    padding: 40px;
+    border-radius: 30px;
+    border-style: dotted;
+    border-width: thick;
+    border-color: palevioletred;
+    float: right;
+}
+
+#cardthrow {
+    width: 50px;
+    background-image: url(/files/cards/red_back.png);
+}
+
+#cardthrow:hover {
+    animation-play-state: paused;
+}
+
+#container {
+    width: 400px;
+    height: 400px;
+    position: relative;
+    background: yellow;
+}
+
+#animate {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    background-color: red;
+}
+
+.leftdiv {
+    display: inline-block;
+    zoom: 1;
+    display: inline;
+}
+
+ul {
+    list-style-type: none;
+    margin-right: 10px;
+}
+
+li {
+    width: 110px;
+    float: left;
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgb(0, 154, 200);
+    overflow-x: hidden;
+    transition: 0.5s ease-in-out;
+    padding-top: 60px;
+}
+
+.sidenav p {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 15px;
+    color: #fff;
+    display: block;
+    transition: 0.2s ease-in-out;
+}
+
+.sidenav p:hover,
+.offcanvas p:focus {
+    color: #000;
+}
+
+.closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px !important;
+    margin-left: 50px;
+}
+
+.openmenu:hover {
+    color: rgb(0, 154, 200);
+    transition: 0.1s ease-in-out;
+}
+
+.openmenu {
+    font-size: 50px;
+    cursor: pointer;
+    transition: 0.5s ease-in-out;
+    color: darkcyan;
+    margin-left: 20px;
+}
+
+.openmenu img {
+    margin-left: 0px;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 15px;
+        margin-left: 0px;
+    }
+    .sidenav a {
+        font-size: 18px;
+    }
+}
+
+audio {
+    display: none;
+}
+
+#slide {
+    height: 30px;
+    border-radius: 50px;
+    border-color: cadetblue;
+    border-width: 10px;
+    text-align: center;
+    font-size: 50px;
+    font-weight: 700;
+    font-size: 70px;
+}
+
+#panel {
+    border: solid 3px #e5eecc;
+    border-radius: 5px;
+    width: 800px;
+    height: 1000px;
+}
+
+#flip {
+    padding: 5px;
+    text-align: center;
+    background-color: #e5eecc;
+    border: solid 5px #e5eecc;
+    width: 200px;
+    border-radius: 5px;
+    font-weight: 1000;
+    font-size: 30px;
+    color: rgb(119, 23, 23);
+}
+
+#panel {
+    padding: 300px;
+    height: 90%;
+    display: none;
+    background-color: rgb(119, 23, 23);
+}

@@ -14,6 +14,15 @@ for (i = 0; i < 52; i++) {
     allCards[i] = i;
 }
 
+
+function openNav() {
+    document.getElementById('mysidenav').style.width = '250px';
+}
+
+function closeNav() {
+    document.getElementById('mysidenav').style.width = '0';
+}
+
 function getCard(id, card) {
     if (id == "player1") {
         player1.push(card);
@@ -102,9 +111,15 @@ var temp = null;
 
 function setCard() {
     if (allCards.length == 0) {
-        alert('더 이상 카드를 뽑을 수 없습니다.');
-        roll();
+        alert('패를 다 써서 아귀가 ' + user + '를 죽여버립니다.');
+        for (var i = 0; i <= 4320; i++) {
+            setTimeout("rotateit(" + i + ")", i);
+        }
+        setTimeout(() => {
+            location.reload();
+        }, 2000);
     }
+
     newCard("player1");
     newCard("player2");
     newCard("player3");
@@ -185,8 +200,6 @@ function calRank() {
 
     for (i = 0; i < 4; i++) {
         if (result[i] == -1) {
-            if (result[i] == -1)
-                alert(i);
             alert("모든 플레이어의 패가 적어도 한 장씩은 있어야 합니다.");
             return;
         }
@@ -223,14 +236,34 @@ function calRank() {
             sortedPlayer.push(i);
         }
     }
-    var maxScore_idx;
-    for (j = 0; j < 4; j++) {
-        if (result[i] == maxScore) {
-            maxScore_idx = j;
-            break;
-        }
-    }
-    document.getElementById("playerholder" + maxScore_idx);
+
+    winPlayer = sortedPlayer[0] + 1;
+    var Fullname = [user, "고니", "아귀", "정마담"];
+
+    alert(sortedPlayer[0]);
+    var winner = document.getElementById("winner_" + winPlayer);
+    winner.style = "border-width: thick;";
+    winner.style = "border-color: green;";
+    winner.style = "border-style: groove;";
+    var text = document.createTextNode("WINNER !!");
+    text.style = "font-size: 50px";
+    text.style = "margin-top: 0px;"
+    text.style = "text-align: center";
+
+    winner.appendChild(text);
+
+
+    // winner.style = "border-width:10px";
+
+
+    // var maxScore_idx;
+    // for (j = 0; j < 4; j++) {
+    //     if (result[i] == maxScore) {
+    //         maxScore_idx = j;
+    //         break;
+    //     }
+    // }
+    // document.getElementById("playerholder" + maxScore_idx);
 
     // if (maxScore_idx == 0) {
     //     // alert(user + "(이)가 최종 승자입니다!!");
@@ -245,6 +278,7 @@ function calRank() {
     // window.open("winnerpage.html",
     //     "childForm", "width=1000, height=2000, resizable = no, scrollbars = no");
 }
+
 
 function calculate(arr) {
     len = arr.length;
@@ -323,7 +357,7 @@ function calculate(arr) {
             }
         }
         if (pairIdx != -1) {
-            catchPhrase.push("로열 플러시");
+            catchPhrase.push("Royal Flush");
             return 300000;
         }
         return -1;
@@ -349,7 +383,7 @@ function calculate(arr) {
             }
         }
         if (pairIdx != -1) {
-            catchPhrase.push(num[pairIdx] + " 스트레이트");
+            catchPhrase.push(num[pairIdx] + " Straight");
             return 100000 + num[pairIdx];
         }
         return -1;
@@ -369,7 +403,7 @@ function calculate(arr) {
         }
 
         if (pairIdx != -1) {
-            catchPhrase.push(num[pairIdx] + " 포 오브 어 카드");
+            catchPhrase.push(num[pairIdx] + " four of a Kind");
             return 50000 + num[pairIdx];
         }
         return -1;
@@ -398,7 +432,7 @@ function calculate(arr) {
                 }
             }
             if (pairIdx2 != -1) {
-                catchPhrase.push("풀 하우스");
+                catchPhrase.push("Full House");
                 return 30000 + num[pairIdx2];
             }
         }
@@ -422,7 +456,7 @@ function calculate(arr) {
             }
         }
         if (pairIdx != -1) {
-            catchPhrase.push(alpha[pairIdx] + " 플러시");
+            catchPhrase.push(alpha[pairIdx] + " Flush");
             return 10000 + num[pairIdx];
         }
         return -1;
@@ -449,7 +483,7 @@ function calculate(arr) {
             }
         }
         if (pairIdx != -1) {
-            catchPhrase.push(num[pairIdx] + " 스트레이트");
+            catchPhrase.push(num[pairIdx] + " Straight");
             return 5000 + num[pairIdx];
         }
         return -1;
@@ -469,7 +503,7 @@ function calculate(arr) {
         }
 
         if (pairIdx != -1) {
-            catchPhrase.push(num[pairIdx] + " 쓰리 오브 어 카인드");
+            catchPhrase.push(num[pairIdx] + " Three of a Kind");
             return 3000 + num[pairIdx];
         }
         return -1;
@@ -496,7 +530,7 @@ function calculate(arr) {
         }
 
         if (pairIdx1 != -1 && pairIdx2 != -1) {
-            catchPhrase.push(num[pairIdx1] + " " + nump[pairIdx2] + " 투 페어");
+            catchPhrase.push(num[pairIdx1] + " " + num[pairIdx2] + " Two Pair");
             return 2000 + num[pairIdx1] + num[pairIdx2];
         }
         return -1;
@@ -516,13 +550,13 @@ function calculate(arr) {
         if (pairIdx != -1) {
             if (num[pairIdx] > 10) {
                 var temp2 = num[pairIdx] - 10;
-                catchPhrase.push(special[temp2] + " 원 페어");
+                catchPhrase.push(special[temp2] + " One Pair");
                 return 1000 + num[pairIdx];
             } else if (num[pairIdx] == 1) {
-                catchPhrase.push(parseInt(special[0]) + " 원 페어");
+                catchPhrase.push(special[0] + " One Pair");
                 return 1000 + num[pairIdx];
             } else {
-                catchPhrase.push(num[pairIdx] + " 원 페어");
+                catchPhrase.push(num[pairIdx] + " One Pair");
                 return 1000 + parseInt(num[pairIdx]);
             }
 
@@ -553,13 +587,13 @@ function calculate(arr) {
 
     if (num[maxIdx] > 10) {
         var temp2 = num[maxIdx] - 10;
-        catchPhrase.push(real_symbols[real] + " " + special[temp2] + " 하이 카드(High Card)<br>");
+        catchPhrase.push(real_symbols[real] + " " + special[temp2] + " High Card");
         return num[maxIdx] * 10 + real;
     } else if (num[maxIdx] == 1) {
-        catchPhrase.push(real_symbols[real] + " " + special[0] + " 하이 카드(High Card)<br>");
+        catchPhrase.push(real_symbols[real] + " " + special[0] + " High Card");
         return num[maxIdx] * 10 + real;
     } else {
-        catchPhrase.push(real_symbols[real] + " " + num[maxIdx] + " 하이 카드(High Card)<br>");
+        catchPhrase.push(real_symbols[real] + " " + num[maxIdx] + " High Card");
         return num[maxIdx] * 10 + real;
     }
 
@@ -614,6 +648,8 @@ function resultCard() {
         each.style.width = 50 + "px";
     }
 }
+
+
 
 // function display() {
 //     var playerImg = new Array();
